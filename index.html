@@ -24,6 +24,10 @@
   li { margin-bottom:8px; }
   .fine { color:#bfae97; font-size:.85rem; }
   footer { text-align:center; color:#9d8b76; font-size:.8rem; padding:24px 0 8px; }
+  .card input { width:100%; padding:12px 14px; margin-bottom:10px; border-radius:10px; border:1px solid rgba(255,214,102,.35); background:rgba(0,0,0,.25); color:#f5efe6; font-size:1rem; }
+  .card input::placeholder { color:#a89880; }
+  .card button { width:100%; padding:13px; border-radius:10px; border:none; background:#ffd666; color:#3a1d00; font-weight:700; font-size:1.05rem; }
+  .form-note { color:#c9b8a0; font-size:.82rem; margin-top:8px; }
 </style>
 </head>
 <body>
@@ -48,7 +52,18 @@
     <div class="rule">You never pay anything to join this offer. Anyone asking you to pay to claim a reward is not Divyansh.</div>
   </div>
 
-  <a class="cta" href="https://wa.me/918127639888?text=Hi%20Divyansh!%20I%20want%20to%20join%20your%20Diwali%20Offer.%0AName%3A%20%0APhone%20number%3A%20%0AUPI%20ID%3A%20">Register on WhatsApp<small>Sends your details straight to Divyansh</small></a>
+  <div class="card">
+    <h2>Register here</h2>
+    <form id="reg">
+      <input type="text" id="fname" placeholder="Your name" required>
+      <input type="tel" id="fphone" placeholder="Your phone number" required>
+      <input type="text" id="fupi" placeholder="Your UPI ID" required>
+      <button type="submit">Submit registration</button>
+      <p class="form-note">Submitting opens WhatsApp with your details filled in, and sends them straight to Divyansh.</p>
+    </form>
+  </div>
+
+  <a class="cta" href="https://wa.me/918127639888?text=Hi%20Divyansh!%20I%20want%20to%20join%20your%20Diwali%20Offer.%0AName%3A%20%0APhone%20number%3A%20%0AUPI%20ID%3A%20">Or register directly on WhatsApp<small>Sends your details straight to Divyansh</small></a>
   <p class="note">Registering on WhatsApp means you agree to the terms below.</p>
 
   <div class="card" style="margin-top:24px;">
@@ -66,5 +81,12 @@
 
   <footer>Diwali offer 2026 · Run personally by Divyansh Singh · Questions? Message on WhatsApp</footer>
 </div>
+<script>
+document.getElementById('reg').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var msg = 'Hi Divyansh! I want to join your Diwali Offer.%0AName: ' + encodeURIComponent(document.getElementById('fname').value.trim()) + '%0APhone number: ' + encodeURIComponent(document.getElementById('fphone').value.trim()) + '%0AUPI ID: ' + encodeURIComponent(document.getElementById('fupi').value.trim());
+  window.location.href = 'https://wa.me/918127639888?text=' + msg;
+});
+</script>
 </body>
 </html>
