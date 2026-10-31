@@ -28,6 +28,15 @@
   .card input::placeholder { color:#a89880; }
   .card button { width:100%; padding:13px; border-radius:10px; border:none; background:#ffd666; color:#3a1d00; font-weight:700; font-size:1.05rem; }
   .form-note { color:#c9b8a0; font-size:.82rem; margin-top:8px; }
+  .share-row { display:flex; flex-direction:column; gap:10px; }
+  .share-btn { display:block; text-align:center; padding:12px; border-radius:10px; font-weight:700; text-decoration:none; color:#fff; border:none; font-size:1rem; cursor:pointer; }
+  .share-btn.wa { background:#25d366; }
+  .share-btn.tg { background:#229ed9; }
+  .share-btn.ig { background:#833ab4; }
+  .progress-wrap { margin-top:14px; }
+  .bar { height:14px; border-radius:8px; background:rgba(0,0,0,.35); overflow:hidden; border:1px solid rgba(255,214,102,.35); }
+  #fill { height:100%; width:0%; background:linear-gradient(90deg,#ffd666,#ff9d3c); transition:width .4s; }
+  .plabel { font-size:.85rem; color:#c9b8a0; text-align:center; margin-top:6px; }
 </style>
 </head>
 <body>
@@ -41,6 +50,20 @@
     <div class="step"><div class="num">1</div><div><b>Share</b><br>Share this offer page with your friends on WhatsApp, Telegram or Instagram.</div></div>
     <div class="step"><div class="num">2</div><div><b>Register</b><br>Tap the button below and send your name, phone number and UPI ID to Divyansh on WhatsApp.</div></div>
     <div class="step"><div class="num">3</div><div><b>Get rewarded</b><br>Divyansh verifies each entry personally and sends your reward straight to your UPI ID.</div></div>
+  </div>
+
+  <div class="card">
+    <h2>Your task</h2>
+    <p style="margin-bottom:12px;">Share this offer with your friends. Tap the buttons below each time you share. The counter on this page tracks your shares; Divyansh checks every entry himself before paying.</p>
+    <div class="share-row">
+      <a id="shwa" class="share-btn wa" target="_blank" rel="noopener">Share on WhatsApp</a>
+      <a id="shtg" class="share-btn tg" target="_blank" rel="noopener">Share on Telegram</a>
+      <button type="button" id="shcp" class="share-btn ig">Copy link (Instagram)</button>
+    </div>
+    <div class="progress-wrap">
+      <div class="bar"><div id="fill"></div></div>
+      <div id="plabel" class="plabel">0 of 30 shares</div>
+    </div>
   </div>
 
   <div class="card">
@@ -87,6 +110,25 @@ document.getElementById('reg').addEventListener('submit', function(e) {
   var msg = 'Hi Divyansh! I want to join your Diwali Offer.%0AName: ' + encodeURIComponent(document.getElementById('fname').value.trim()) + '%0APhone number: ' + encodeURIComponent(document.getElementById('fphone').value.trim()) + '%0AUPI ID: ' + encodeURIComponent(document.getElementById('fupi').value.trim());
   window.location.href = 'https://wa.me/918127639888?text=' + msg;
 });
+</script>
+<script>
+var PAGE_URL = 'https://schoolbidsm-code.github.io/diwali-offer/';
+var SHARE_TEXT = 'Diwali Offer from Divyansh Singh! Share and register to get a reward, limited slots: ' + PAGE_URL;
+document.getElementById('shwa').href = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(SHARE_TEXT);
+document.getElementById('shtg').href = 'https://t.me/share/url?url=' + encodeURIComponent(PAGE_URL) + '&text=' + encodeURIComponent(SHARE_TEXT);
+var count = parseInt(localStorage.getItem('dshare') || '0', 10);
+function draw() {
+  document.getElementById('fill').style.width = Math.min(count / 30 * 100, 100) + '%';
+  document.getElementById('plabel').textContent = count >= 30 ? 'Task complete! Now register below with your UPI ID.' : count + ' of 30 shares';
+}
+function bump() { count++; localStorage.setItem('dshare', count); draw(); }
+document.getElementById('shwa').addEventListener('click', bump);
+document.getElementById('shtg').addEventListener('click', bump);
+document.getElementById('shcp').addEventListener('click', function() {
+  if (navigator.clipboard) { navigator.clipboard.writeText(SHARE_TEXT); }
+  bump();
+});
+draw();
 </script>
 </body>
 </html>
