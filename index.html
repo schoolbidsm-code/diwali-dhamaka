@@ -51,6 +51,7 @@
   .bar { height:14px; border-radius:8px; background:#f3e6d4; overflow:hidden; border:1px solid #e0c49c; }
   #fill { height:100%; width:0%; background:linear-gradient(90deg,#ffd666,#f0a832); transition:width .4s; }
   .plabel { font-size:.85rem; color:#8a6f52; text-align:center; margin-top:6px; }
+  .codebox { background:#fff3df; border:1px dashed #d9a53f; color:#5a2600; padding:12px 14px; border-radius:10px; font-size:.95rem; }
 </style>
 </head>
 <body>
@@ -119,6 +120,7 @@
     </form>
     <div id="regDone" style="display:none;">
       <div class="success">Registration successful! Now complete your task below.</div>
+      <div class="codebox">Your entry code: <b id="ecode"></b><br><span class="fine">Save this code. Divyansh will ask for it while sending your reward.</span></div>
     </div>
   </div>
 
@@ -174,22 +176,39 @@ function draw() {
 }
 draw();
 
+function makeCode() {
+  var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  var c = 'DIW-';
+  for (var i = 0; i < 5; i++) { c += chars.charAt(Math.floor(Math.random() * chars.length)); }
+  return c;
+}
 document.getElementById('reg').addEventListener('submit', function(e) {
   e.preventDefault();
   var name = document.getElementById('fname').value.trim();
   var phone = document.getElementById('fphone').value.trim();
   var msg = document.getElementById('regMsg');
-  msg.textContent = 'Submitting your registration...';
-  post({_subject: 'New Diwali Offer registration', name: name, phone: phone}, function(ok) {
-    if (ok) {
-      localStorage.setItem('dname', name);
-      localStorage.setItem('dphone', phone);
-      registered = true;
-      draw();
-    } else {
-      msg.textContent = 'Could not submit right now. Please try again in a moment.';
+  if (!/^[0-9+ ]{10,15}$/.test(phone)) { msg.textContent = 'Please enter a valid mobile number.'; return; }
+  if (name.length < 2) { msg.textContent = 'Please enter your full name.'; return; }
+  msg.textContent = 'Checking and submitting your registration...';
+  fetch('registered.json?cb=' + Date.now()).then(function(r){ return r.json(); }).then(function(list) {
+    if (list.indexOf(phone) !== -1 || localStorage.getItem('dphone') === phone) {
+      msg.textContent = 'This mobile number is already registered. One entry per number.';
+      return;
     }
-  });
+    var code = makeCode();
+    post({_subject: 'New Diwali Offer registration', name: name, phone: phone, code: code}, function(ok) {
+      if (ok) {
+        localStorage.setItem('dname', name);
+        localStorage.setItem('dphone', phone);
+        localStorage.setItem('dcode', code);
+        registered = true;
+        document.getElementById('ecode').textContent = code;
+        draw();
+      } else {
+        msg.textContent = 'Could not submit right now. Please try again in a moment.';
+      }
+    });
+  }).catch(function(){ msg.textContent = 'Could not check registrations right now. Please try again.'; });
 });
 
 document.getElementById('upi').addEventListener('submit', function(e) {
@@ -197,7 +216,7 @@ document.getElementById('upi').addEventListener('submit', function(e) {
   var upi = document.getElementById('fupi').value.trim();
   var btn = document.getElementById('upi').querySelector('button');
   btn.textContent = 'Submitting...';
-  post({_subject: 'Diwali Offer - task complete, UPI for reward', name: saved, phone: savedPhone, upi: upi, shares: count}, function(ok) {
+  post({_subject: 'Diwali Offer - task complete, UPI for reward', name: saved, phone: savedPhone, code: (localStorage.getItem('dcode') || ''), upi: upi, shares: count}, function(ok) {
     if (ok) {
       document.getElementById('upiDone').style.display = 'block';
       document.getElementById('upi').querySelector('button').style.display = 'none';
