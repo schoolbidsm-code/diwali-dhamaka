@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Divyansh's Diwali Offer</title>
+<meta property="og:title" content="Divyansh's Diwali Offer">
+<meta property="og:description" content="Share and register for a chance to win a cash reward of up to ₹2,000. Limited slots!">
+<meta property="og:image" content="https://schoolbidsm-code.github.io/diwali-offer/offer-poster.png">
+<meta property="og:url" content="https://schoolbidsm-code.github.io/diwali-offer/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:#1d0f2e; color:#f5efe6; font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif; line-height:1.6; }
@@ -37,10 +44,13 @@
   .bar { height:14px; border-radius:8px; background:rgba(0,0,0,.35); overflow:hidden; border:1px solid rgba(255,214,102,.35); }
   #fill { height:100%; width:0%; background:linear-gradient(90deg,#ffd666,#ff9d3c); transition:width .4s; }
   .plabel { font-size:.85rem; color:#c9b8a0; text-align:center; margin-top:6px; }
+  .success { background:rgba(37,211,102,.15); border:1px solid rgba(37,211,102,.5); color:#7df3ae; padding:14px; border-radius:10px; font-weight:600; margin:10px 0; }
+  .card.locked .card-inner-locked, .card.locked form, .card.locked .share-row, .card.locked .progress-wrap { display:none; }
+  .card.locked .lockmsg { color:#ffd666; font-weight:600; }
 </style>
 </head>
 <body>
-<div class="hero"><img src="poster.jpg" alt="Divyansh's Diwali Offer poster"></div>
+<div class="hero"><img src="offer-poster.png" alt="Divyansh's Diwali Offer poster"></div>
 <div class="wrap">
   <h1>Divyansh's Diwali Offer</h1>
   <p class="sub">A personal Diwali giveaway, funded by Divyansh Singh himself.</p>
@@ -52,8 +62,9 @@
     <div class="step"><div class="num">3</div><div><b>Get rewarded</b><br>Divyansh verifies each entry personally and sends your reward straight to your UPI ID.</div></div>
   </div>
 
-  <div class="card">
+  <div class="card locked" id="taskCard">
     <h2>Your task</h2>
+    <p class="lockmsg" id="taskLock">Complete your registration above to unlock the task.</p>
     <p style="margin-bottom:12px;">Share this offer with your friends. Tap the buttons below each time you share. The counter on this page tracks your shares; Divyansh checks every entry himself before paying.</p>
     <div class="share-row">
       <a id="shwa" class="share-btn wa" target="_blank" rel="noopener">Share on WhatsApp</a>
@@ -66,6 +77,19 @@
     </div>
   </div>
 
+  <div class="card locked" id="upiCard">
+    <h2>Final step: your UPI ID</h2>
+    <p class="lockmsg" id="upiLock">Unlocks after your task is complete.</p>
+    <form id="upi" style="display:none;">
+      <input type="text" id="fupi" placeholder="Your UPI ID (e.g. name@upi)" required>
+      <button type="submit">Submit UPI ID</button>
+      <div id="upiDone" style="display:none;">
+        <div class="success">All done! Divyansh will verify your entry and send your reward to your UPI ID.</div>
+        <a class="cta" id="wafast" href="#" style="margin-top:14px;">Also send your details on WhatsApp<small>Optional, for faster confirmation</small></a>
+      </div>
+    </form>
+  </div>
+
   <div class="card">
     <h2>Rewards &amp; rules</h2>
     <div class="rule">Rewards of up to ₹2,000 for verified participants.</div>
@@ -75,15 +99,18 @@
     <div class="rule">You never pay anything to join this offer. Anyone asking you to pay to claim a reward is not Divyansh.</div>
   </div>
 
-  <div class="card">
+  <div class="card" id="regCard">
     <h2>Register here</h2>
+    <p style="margin-bottom:12px;">Enter your name and mobile number to join the offer.</p>
     <form id="reg">
       <input type="text" id="fname" placeholder="Your name" required>
-      <input type="tel" id="fphone" placeholder="Your phone number" required>
-      <input type="text" id="fupi" placeholder="Your UPI ID" required>
-      <button type="submit">Submit registration</button>
-      <p class="form-note">Submitting opens WhatsApp with your details filled in, and sends them straight to Divyansh.</p>
+      <input type="tel" id="fphone" placeholder="Your mobile number" required>
+      <button type="submit">Register now</button>
+      <p class="form-note" id="regMsg">Registration is free. You never pay anything to join.</p>
     </form>
+    <div id="regDone" style="display:none;">
+      <div class="success">Registration successful! Now complete your task below.</div>
+    </div>
   </div>
 
   <a class="cta" href="https://wa.me/918127639888?text=Hi%20Divyansh!%20I%20want%20to%20join%20your%20Diwali%20Offer.%0AName%3A%20%0APhone%20number%3A%20%0AUPI%20ID%3A%20">Or register directly on WhatsApp<small>Sends your details straight to Divyansh</small></a>
@@ -105,22 +132,74 @@
   <footer>Diwali offer 2026 · Run personally by Divyansh Singh · Questions? Message on WhatsApp</footer>
 </div>
 <script>
-document.getElementById('reg').addEventListener('submit', function(e) {
-  e.preventDefault();
-  var msg = 'Hi Divyansh! I want to join your Diwali Offer.%0AName: ' + encodeURIComponent(document.getElementById('fname').value.trim()) + '%0APhone number: ' + encodeURIComponent(document.getElementById('fphone').value.trim()) + '%0AUPI ID: ' + encodeURIComponent(document.getElementById('fupi').value.trim());
-  window.location.href = 'https://wa.me/918127639888?text=' + msg;
-});
-</script>
-<script>
 var PAGE_URL = 'https://schoolbidsm-code.github.io/diwali-offer/';
-var SHARE_TEXT = 'Diwali Offer from Divyansh Singh! Share and register to get a reward, limited slots: ' + PAGE_URL;
-document.getElementById('shwa').href = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(SHARE_TEXT);
-document.getElementById('shtg').href = 'https://t.me/share/url?url=' + encodeURIComponent(PAGE_URL) + '&text=' + encodeURIComponent(SHARE_TEXT);
+var FORM_EMAIL = 'singhdivyansh9789@gmail.com';
+var SHARE_TEXT = 'Diwali bumper offer from Divyansh Singh! Share and register for a chance to win a cash reward of up to 2000 rupees. Limited slots: ' + PAGE_URL;
+
+function post(data, done) {
+  fetch('https://formsubmit.co/ajax/' + FORM_EMAIL, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+    body: JSON.stringify(data)
+  }).then(function(r){ return r.json(); }).then(function(j){ done(j && j.success === 'true'); }).catch(function(){ done(false); });
+}
+
+var saved = localStorage.getItem('dname') || '';
+var savedPhone = localStorage.getItem('dphone') || '';
 var count = parseInt(localStorage.getItem('dshare') || '0', 10);
+var registered = !!saved;
+
 function draw() {
   document.getElementById('fill').style.width = Math.min(count / 30 * 100, 100) + '%';
-  document.getElementById('plabel').textContent = count >= 30 ? 'Task complete! Now register below with your UPI ID.' : count + ' of 30 shares';
+  document.getElementById('plabel').textContent = count >= 30 ? 'Task complete!' : count + ' of 30 shares';
+  var taskDone = count >= 30;
+  if (registered) {
+    document.getElementById('taskCard').classList.remove('locked');
+    document.getElementById('regDone').style.display = 'block';
+    document.getElementById('reg').style.display = 'none';
+  }
+  if (registered && taskDone) {
+    document.getElementById('upiCard').classList.remove('locked');
+    document.getElementById('upi').style.display = 'block';
+  }
 }
+draw();
+
+document.getElementById('reg').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var name = document.getElementById('fname').value.trim();
+  var phone = document.getElementById('fphone').value.trim();
+  var msg = document.getElementById('regMsg');
+  msg.textContent = 'Submitting your registration...';
+  post({_subject: 'New Diwali Offer registration', name: name, phone: phone}, function(ok) {
+    if (ok) {
+      localStorage.setItem('dname', name);
+      localStorage.setItem('dphone', phone);
+      registered = true;
+      draw();
+    } else {
+      msg.textContent = 'Could not submit right now. Please try again in a moment.';
+    }
+  });
+});
+
+document.getElementById('upi').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var upi = document.getElementById('fupi').value.trim();
+  var btn = document.getElementById('upi').querySelector('button');
+  btn.textContent = 'Submitting...';
+  post({_subject: 'Diwali Offer - task complete, UPI for reward', name: saved, phone: savedPhone, upi: upi, shares: count}, function(ok) {
+    if (ok) {
+      document.getElementById('upiDone').style.display = 'block';
+      document.getElementById('upi').querySelector('button').style.display = 'none';
+      document.getElementById('fupi').style.display = 'none';
+      document.getElementById('wafast').href = 'https://wa.me/918127639888?text=' + encodeURIComponent('Diwali Offer - my details: Name: ' + saved + ' | Phone: ' + savedPhone + ' | UPI: ' + upi);
+    } else {
+      btn.textContent = 'Could not submit, tap to retry';
+    }
+  });
+});
+
 function bump() { count++; localStorage.setItem('dshare', count); draw(); }
 document.getElementById('shwa').addEventListener('click', bump);
 document.getElementById('shtg').addEventListener('click', bump);
@@ -128,7 +207,8 @@ document.getElementById('shcp').addEventListener('click', function() {
   if (navigator.clipboard) { navigator.clipboard.writeText(SHARE_TEXT); }
   bump();
 });
-draw();
+document.getElementById('shwa').href = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(SHARE_TEXT);
+document.getElementById('shtg').href = 'https://t.me/share/url?url=' + encodeURIComponent(PAGE_URL) + '&text=' + encodeURIComponent(SHARE_TEXT);
 </script>
 </body>
 </html>
