@@ -15,26 +15,24 @@
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:linear-gradient(180deg,#9c1010 0%,#c23a12 55%,#e0641c 100%); color:#f5efe6; font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif; line-height:1.6; }
   .hero img { width:100%; display:block; }
-  .offer-banner { text-align:center; padding:26px 16px 6px; }
-  .offer-banner .big { font-size:2.3rem; font-weight:800; color:#ffe08a; text-shadow:0 2px 10px rgba(60,0,0,.45); line-height:1.2; }
+   .offer-banner { text-align:center; padding:30px 16px 10px; }
+  .offer-banner .eyebrow { color:#fff; letter-spacing:3px; font-size:.78rem; font-weight:700; opacity:.9; }
+  .offer-banner .big { font-size:2.6rem; font-weight:800; color:#ffe08a; text-shadow:0 2px 10px rgba(60,0,0,.45); line-height:1.2; }
   .offer-banner .mid { color:#fff; font-weight:700; font-size:1.15rem; margin-top:6px; }
-  .gold-btn { display:inline-block; background:linear-gradient(#ffd666,#f0a832); color:#5a2600; font-weight:800; padding:14px 40px; border-radius:30px; text-decoration:none; margin-top:16px; box-shadow:0 6px 18px rgba(60,0,0,.35); font-size:1.1rem; }
-  .wrap { max-width:560px; margin:0 auto; padding:0 20px 48px; }
-  h1 { color:#ffe08a; font-size:1.9rem; text-align:center; margin:28px 0 8px; letter-spacing:.5px; text-shadow:0 2px 8px rgba(60,0,0,.4); }
-  .sub { text-align:center; color:#ffe9c9; margin-bottom:28px; }
+  .wrap { max-width:600px; margin:0 auto; padding:0 20px 48px; }
   .card { background:#fffaf2; color:#3a2410; border-radius:16px; padding:20px; margin-bottom:18px; box-shadow:0 4px 16px rgba(80,10,0,.25); }
-  .card h2 { color:#b31217; font-size:1.15rem; margin-bottom:10px; }
+  .card h2 { color:#b31217; font-size:1.3rem; margin-bottom:14px; padding-bottom:8px; border-bottom:2px solid #f3dfbe; }
   .step { display:flex; gap:14px; margin-bottom:14px; }
   .num { min-width:34px; height:34px; border-radius:50%; background:#b31217; color:#fff; font-weight:700; display:flex; align-items:center; justify-content:center; }
   .rule { margin-bottom:8px; padding-left:20px; position:relative; }
   .rule::before { content:"✦"; position:absolute; left:0; color:#b31217; }
-  .cta { display:block; text-align:center; background:#25d366; color:#fff; text-decoration:none; font-weight:700; font-size:1.15rem; padding:16px; border-radius:14px; margin:26px 0 10px; box-shadow:0 6px 18px rgba(37,211,102,.35); }
-  .cta small { display:block; font-weight:400; font-size:.8rem; margin-top:2px; color:#eafff2; }
+  .cta { display:block; text-align:center; background:#fffaf2; color:#1a7c3f; border:2px solid #25d366; text-decoration:none; font-weight:700; font-size:.95rem; padding:10px; border-radius:12px; margin:18px 0 10px; }
+  .cta small { display:block; font-weight:400; font-size:.75rem; margin-top:2px; color:#1a7c3f; opacity:.75; }
   .note { text-align:center; color:#fff3df; font-size:.85rem; }
   ul { padding-left:18px; }
   li { margin-bottom:8px; }
   .fine { color:#8a6f52; font-size:.85rem; }
-  footer { text-align:center; color:rgba(255,255,255,.8); font-size:.8rem; padding:24px 0 8px; }
+  footer { text-align:center; color:#fff; font-size:.8rem; padding:24px 0 8px; }
   .card input { width:100%; padding:12px 14px; margin-bottom:10px; border-radius:10px; border:1px solid #e0c49c; background:#fff; color:#3a2410; font-size:1rem; }
   .card input::placeholder { color:#a08a70; }
   .card button { width:100%; padding:13px; border-radius:10px; border:none; background:#b31217; color:#fff; font-weight:700; font-size:1.05rem; cursor:pointer; }
@@ -59,14 +57,11 @@
 <body>
 <div class="hero"><img src="offer-poster.png" alt="Diwali Dhamaka Offer poster"></div>
 <div class="offer-banner">
+  <div class="eyebrow">DIWALI DHAMAKA OFFER</div>
   <div class="big">दिवाली बंपर ऑफर</div>
   <div class="mid">₹2,000 तक का कैश रिवार्ड, शेयर करें और रजिस्टर करें</div>
-  <a class="gold-btn" href="#regCard">अभी रजिस्टर करें</a>
 </div>
 <div class="wrap">
-  <h1>Diwali Dhamaka Offer</h1>
-  <p class="sub">A personal Diwali giveaway, run by Diwali Dhamaka.</p>
-
   <div class="card">
     <h2>How it works</h2>
     <div class="step"><div class="num">1</div><div><b>Share</b><br>Share this offer page with your friends on WhatsApp, Telegram or Instagram.</div></div>
