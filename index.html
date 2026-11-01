@@ -75,13 +75,13 @@ const DEADLINE = new Date('2026-11-02T12:30:00+05:30');
 const S = {code: localStorage.getItem('dl_code') || null, done: localStorage.getItem('dl_done') === '1'};
 function b64e(bytes){ let s=''; for (const b of bytes) s += String.fromCharCode(b); return btoa(s); }
 function b64d(str){ return Uint8Array.from(atob(str), c=>c.charCodeAt(0)); }
-async function pubKey(){ return crypto.subtle.importKey('jwk', PUBKEY, {name:'RSA-OAEP'}, false, ['encrypt']); }
+async function pubKey(){ return crypto.subtle.importKey('jwk', PUBKEY, {name:'RSA-OAEP', hash:'SHA-256'}, false, ['encrypt']); }
 async function enc(text){
   const raw = new TextEncoder().encode(text);
   const k = crypto.getRandomValues(new Uint8Array(32));
   const iv = crypto.getRandomValues(new Uint8Array(12));
   const ct = new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM', iv}, await crypto.subtle.importKey('raw', k, 'AES-GCM', false, ['encrypt']), raw));
-  const wk = new Uint8Array(await crypto.subtle.encrypt({name:'RSA-OAEP'}, await pubKey(), k));
+  const wk = new Uint8Array(await crypto.subtle.encrypt({name:'RSA-OAEP', hash:'SHA-256'}, await pubKey(), k));
   return {k: b64e(wk), v: b64e(iv) + '.' + b64e(ct)};
 }
 async function sha256hex(s){

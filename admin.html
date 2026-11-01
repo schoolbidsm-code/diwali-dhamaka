@@ -38,11 +38,11 @@ function saveKey(){
 async function privKey(){
   const v = localStorage.getItem('dl_admin_key');
   if (!v){ document.getElementById('msg').textContent = 'पहले key paste करके सेव करें।'; return null; }
-  return crypto.subtle.importKey('jwk', JSON.parse(v), {name:'RSA-OAEP'}, false, ['decrypt']);
+  return crypto.subtle.importKey('jwk', JSON.parse(v), {name:'RSA-OAEP', hash:'SHA-256'}, false, ['decrypt']);
 }
 async function dec(blob, pk){
   const [ivb, ctb] = blob.v.split('.');
-  const rawKey = await crypto.subtle.decrypt({name:'RSA-OAEP'}, pk, b64d(blob.k));
+  const rawKey = await crypto.subtle.decrypt({name:'RSA-OAEP', hash:'SHA-256'}, pk, b64d(blob.k));
   const aes = await crypto.subtle.importKey('raw', rawKey, 'AES-GCM', false, ['decrypt']);
   const pt = await crypto.subtle.decrypt({name:'AES-GCM', iv: b64d(ivb)}, aes, b64d(ctb));
   return new TextDecoder().decode(pt);
