@@ -232,6 +232,9 @@ async function shrinkQR(file){
   return new Uint8Array(await blob.arrayBuffer());
 }
 function setupUPI(code){
+  const formEl = document.getElementById('upiForm');
+  if (formEl.dataset.bound){ return; }
+  formEl.dataset.bound = '1';
   const r = localStorage.getItem('dl_reg');
   if (r){ try { const d = JSON.parse(r); document.getElementById('upiname').value = d.n || ''; document.getElementById('upiphone').value = d.p || ''; } catch(e){} }
   let qrOk = false, qrText = '';
@@ -259,6 +262,7 @@ function setupUPI(code){
     const f = document.getElementById('upiqr').files[0];
     if (!f){ out.innerHTML = '<div class="closed">QR ज़रूरी है: अपने UPI ऐप का असली QR कोड का साफ़ फोटो लगाएं, दूसरी फोटो नहीं चलेगी।</div>'; return; }
     if (!qrOk){ out.innerHTML = '<div class="closed">यह QR पहचाना नहीं गया। QR कोड का साफ़, पूरा फोटो लगाएं।</div>'; return; }
+    const myCode = S.code || code;
     const pm = qrText.match(/[?&]pa=([^&]+)/i);
     if (pm){ const qpa = decodeURIComponent(pm[1]).trim().toLowerCase(); if (qpa && qpa !== upi.toLowerCase()){ out.innerHTML = '<div class="closed">QR में दूसरी UPI ID है। UPI ID और QR दोनों एक ही होने चाहिए।</div>'; return; } }
     out.innerHTML = '<div class="note">जोड़ा जा रहा है...</div>';
@@ -266,16 +270,16 @@ function setupUPI(code){
       let qurl = '';
       if (f){
         const payload = JSON.stringify(await encBytes(await shrinkQR(f)));
-        const ra = await fetch(TOPIC_URL, {method:'PUT', headers:{'X-Filename':'upi-'+code+'.json','Title':'dl-upiq','Priority':'min'}, body: payload});
+        const ra = await fetch(TOPIC_URL, {method:'PUT', headers:{'X-Filename':'upi-'+myCode+'.json','Title':'dl-upiq','Priority':'min'}, body: payload});
         if (!ra.ok) throw new Error('qr');
         const j = await ra.json();
         qurl = (j.attachment && j.attachment.url) || '';
       }
-      const rec = {t:'upi', c:code, d:Date.now(), n:await enc(name), p:await enc(phone), u:await enc(upi)};
+      const rec = {t:'upi', c:myCode, d:Date.now(), n:await enc(name), p:await enc(phone), u:await enc(upi)};
       if (qurl) rec.q = qurl;
       const res = await postEntry(rec);
       if (res.error) throw new Error('post');
-      localStorage.setItem('dl_upi', code);
+      localStorage.setItem('dl_upi', myCode);
       out.innerHTML = '<div class="success">UPI जोड़ दी गई! इनाम मिलने पर इसी पर पैसा भेजा जाएगा।</div>';
     } catch(e){
       out.innerHTML = '<div class="closed">कुछ गड़बड़ हो गई, दोबारा कोशिश करें।</div>';
