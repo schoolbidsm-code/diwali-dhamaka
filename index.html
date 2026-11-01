@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>दिवाली धमाका ऑफर</title>
+<meta property="og:title" content="दिवाली धमाका ऑफर">
+<meta property="og:description" content="₹2,000 तक का कैश रिवार्ड। रजिस्टर करें, गेम पूरा करें, विजेता चुने जाएंगे।">
+<meta property="og:image" content="offer-poster.png">
+<style>
+body{font-family:system-ui,'Noto Sans Devanagari',sans-serif;margin:0;background:linear-gradient(160deg,#9c1010,#c23a12,#e0641c);color:#3a2410}
+.hero img{width:100%;display:block}
+.offer-banner{text-align:center;padding:24px 16px 8px;color:#fff}
+.offer-banner .big{font-size:2.4rem;font-weight:800;color:#ffe08a;line-height:1.2}
+.offer-banner .mid{font-weight:700;font-size:1.1rem;margin-top:6px}
+.wrap{max-width:600px;margin:0 auto;padding:0 20px 48px}
+.card{background:#fffaf2;border-radius:16px;padding:20px;margin-bottom:18px;box-shadow:0 4px 16px rgba(80,10,0,.25)}
+.card h2{color:#b31217;font-size:1.25rem;margin:0 0 14px;padding-bottom:8px;border-bottom:2px solid #f3dfbe}
+input{width:100%;padding:12px 14px;margin-bottom:10px;border-radius:10px;border:1px solid #e0c49c;font-size:1rem;box-sizing:border-box}
+button{width:100%;padding:13px;border-radius:10px;border:none;background:#b31217;color:#fff;font-weight:700;font-size:1.05rem;cursor:pointer}
+.note{font-size:.85rem;color:#8a6f52;margin-top:8px}
+.success{background:#e8faf0;border:1px solid #7ed8a8;color:#1c7c46;padding:14px;border-radius:10px;font-weight:600}
+.codebox{background:#fff3df;border:1px dashed #d9a53f;color:#5a2600;padding:12px;border-radius:10px;font-size:1.05rem;text-align:center;font-weight:800;letter-spacing:2px;margin:10px 0}
+.share-row{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.share-btn{display:flex;align-items:center;justify-content:center;gap:9px;padding:12px;border-radius:10px;font-weight:700;color:#fff;text-decoration:none;border:none;font-size:1rem;cursor:pointer}
+.wa{background:#25d366}.tg{background:#229ed9}.ig{background:#833ab4}
+.share-btn svg{width:20px;height:20px;fill:currentColor}
+.closed{background:#fdeaea;border:1px solid #e5a3a3;color:#8a1f1f;padding:16px;border-radius:10px;font-weight:600;text-align:center}
+.rule{margin-bottom:8px;padding-left:20px;position:relative;font-size:.95rem}
+.rule::before{content:"✦";position:absolute;left:0;color:#b31217}
+.gamebox{text-align:center;padding:10px 0}
+.diya{font-size:3.2rem;cursor:pointer;user-select:none;filter:grayscale(1) opacity(.45);transition:.3s}
+.diya.lit{filter:none;animation:glow 1.2s ease-in-out infinite alternate}
+@keyframes glow{from{text-shadow:0 0 6px #ffcf5c}to{text-shadow:0 0 22px #ffb300}}
+footer{text-align:center;color:#fff;font-size:.8rem;padding:20px 0}
+</style>
+</head>
+<body>
+<div class="hero"><img src="offer-poster.png" alt="दिवाली धमाका ऑफर पोस्टर"></div>
+<div class="offer-banner">
+  <div class="big">दिवाली धमाका ऑफर</div>
+  <div class="mid">₹2,000 तक का कैश रिवार्ड, 3 विजेता</div>
+</div>
+<div class="wrap">
+  <div class="card" id="statusCard"><div id="statusBody">लोड हो रहा है...</div></div>
+  <div class="card" id="gameCard" style="display:none">
+    <h2>दीपक जलाएं (गेम)</h2>
+    <div class="gamebox"><span class="diya" id="diya" role="button" aria-label="दीपक जलाएं">🪔</span></div>
+    <p class="note" id="gameNote">रजिस्टर करने के बाद दीपक पर टैप करें। गेम पूरा करने पर आप विजेता चुने जाने वाली सूची में आते हैं। इनाम पक्का नहीं है।</p>
+  </div>
+  <div class="card" id="shareCard" style="display:none">
+    <h2>शेयर करें (ज़रूरी नहीं)</h2>
+    <p style="font-size:.95rem">चाहें तो ऑफर दोस्तों को भेजें। शेयर करना ज़रूरी नहीं है और जीतने पर कोई असर नहीं डालता।</p>
+    <div class="share-row">
+      <a class="share-btn wa" id="shwa" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>WhatsApp पर भेजें</a>
+      <a class="share-btn tg" id="shtg" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>Telegram पर भेजें</a>
+      <button type="button" class="share-btn ig" id="shcp">लिंक कॉपी करें</button>
+    </div>
+  </div>
+  <div class="card">
+    <h2>नियम</h2>
+    <div class="rule">एंट्री बिल्कुल फ्री है; उम्र या लिंग की पाबंदी नहीं।</div>
+    <div class="rule">3 विजेताओं को ₹2,000-₹2,000 (कुल ₹6,000); विजेता आयोजक खुद चुनेंगे, इनाम पक्का नहीं है।</div>
+    <div class="rule">शेयर पूरी तरह optional है; कोई share count नहीं दिखता।</div>
+    <div class="rule">एक मोबाइल नंबर से एक ही एंट्री। नाम और नंबर आपके फ़ोन में ही encrypt होकर सेव होते हैं, OTP नहीं माँगा जाता; decrypt करने वाली चाबी केवल आयोजक के पास है।</div>
+    <div class="rule">जॉइन करने के लिए कभी पैसे नहीं देने होते। पैसे माँगने वाला इस ऑफर का नहीं है।</div>
+    <div class="rule" id="deadlineLine"></div>
+  </div>
+</div>
+<footer>दिवाली धमाका ऑफर · दिवाली 2026</footer>
+<script>
+const PUBKEY = {"kty": "RSA", "e": "AQAB", "n": "je2AZ2yj484zppjPze8fWqY_G1kvGldgZPzHvArbeDyILRfPqACNe0xtWYmgS4JgeIRAMqD4wMMQV0mMt95qXHfC8IVUM2OO9zFGLRkkFN9JVzSxzHNIHZSL26VYNbKBFVGpKNCRHxnkC8TJR3sQYf3ToXL5f5atrLkScruF108WpLZaOZYgZKJ2MgaVrKTznqjfc1pmInts_lWWvrmKkL8gf8GGnIdvfL494WfmMGEsNms8BhOMQrLYO_YKsqNMc6ctv35FydREw-M5HzRT1jRtzbDiBpC_OX5tFZ5CV8Ags01AXiDWDRHnmQQDimlF6ronRU8MBEbU7J52HK9VNw", "alg": "RSA-OAEP-256", "ext": true, "key_ops": ["encrypt"]};
+const TOPIC_URL = 'https://ntfy.sh/dhamaka-daf195367105';
+const DEADLINE = new Date('2026-11-02T12:30:00+05:30');
+const S = {code: localStorage.getItem('dl_code') || null, done: localStorage.getItem('dl_done') === '1'};
+function b64e(bytes){ let s=''; for (const b of bytes) s += String.fromCharCode(b); return btoa(s); }
+function b64d(str){ return Uint8Array.from(atob(str), c=>c.charCodeAt(0)); }
+async function pubKey(){ return crypto.subtle.importKey('jwk', PUBKEY, {name:'RSA-OAEP'}, false, ['encrypt']); }
+async function enc(text){
+  const raw = new TextEncoder().encode(text);
+  const k = crypto.getRandomValues(new Uint8Array(32));
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const ct = new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM', iv}, await crypto.subtle.importKey('raw', k, 'AES-GCM', false, ['encrypt']), raw));
+  const wk = new Uint8Array(await crypto.subtle.encrypt({name:'RSA-OAEP'}, await pubKey(), k));
+  return {k: b64e(wk), v: b64e(iv) + '.' + b64e(ct)};
+}
+async function sha256hex(s){
+  const d = new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)));
+  return [...d].map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+function normalizePhone(raw){
+  let d = String(raw||'').replace(/\D/g, '');
+  if (d.length === 12 && d.startsWith('91')) d = d.slice(2);
+  else if (d.length === 11 && d.startsWith('0')) d = d.slice(1);
+  return /^[6-9]\d{9}$/.test(d) ? d : null;
+}
+function randCode(len=8){
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  const bytes = crypto.getRandomValues(new Uint8Array(len));
+  let s=''; for (const b of bytes) s += chars[b % chars.length];
+  return s;
+}
+async function topicEntries(){
+  const r = await fetch(TOPIC_URL + '/json?poll=1&since=all');
+  const lines = (await r.text()).trim().split('\n').filter(Boolean);
+  const out = [];
+  for (const l of lines){
+    try { const m = JSON.parse(l); if (m.event === 'message' && m.message){ out.push(JSON.parse(m.message)); } } catch(e){}
+  }
+  return out;
+}
+async function postEntry(obj){
+  const r = await fetch(TOPIC_URL, {method:'POST', headers:{'Title':'dl-entry','Priority':'min','Tags':'oil_lamp'}, body: JSON.stringify(obj)});
+  if (r.status === 429) return {error:'rate'};
+  if (!r.ok) return {error:'net'};
+  return {ok:true};
+}
+function showGame(){
+  document.getElementById('gameCard').style.display = 'block';
+  document.getElementById('shareCard').style.display = 'block';
+  if (S.done){ document.getElementById('diya').classList.add('lit'); document.getElementById('gameNote').textContent = 'दीपक जल चुका है! शुभकामनाएं। विजेता एंट्री बंद होने के बाद चुने जाएंगे।'; }
+}
+async function init(){
+  const open = Date.now() < DEADLINE.getTime();
+  document.getElementById('deadlineLine').textContent = 'एंट्री की आखिरी समय: ' + DEADLINE.toLocaleString('hi-IN', {timeZone:'Asia/Kolkata', day:'numeric', month:'long', year:'numeric', hour:'numeric', minute:'2-digit', hour12:true});
+  const body = document.getElementById('statusBody');
+  if (!open){
+    body.innerHTML = '<div class="closed">एंट्री का समय पूरा हो गया। रजिस्ट्रेशन बंद है।</div>';
+    return;
+  }
+  let count = '';
+  try { const es = await topicEntries(); const regs = es.filter(e=>e.t==='reg').length; if (regs>0) count = ' <span style="font-size:.85rem;color:#8a6f52">(अब तक ' + regs + ' एंट्री)</span>'; } catch(e){}
+  body.innerHTML = '<h2>रजिस्टर करें' + count + '</h2><form id="reg"><input id="fname" placeholder="आपका नाम" required><input id="fphone" type="tel" placeholder="मोबाइल नंबर" required><button type="submit">रजिस्टर करें</button><div class="note">फ्री एंट्री। OTP नहीं माँगा जाएगा। नाम और नंबर encrypt होकर सेव होते हैं।</div></form><div id="regDone"></div>';
+  document.getElementById('reg').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const out = document.getElementById('regDone');
+    out.innerHTML = '<div class="note">रजिस्टर हो रहा है...</div>';
+    const name = document.getElementById('fname').value.trim();
+    const phone = normalizePhone(document.getElementById('fphone').value);
+    if (!phone || name.length < 2){ out.innerHTML = '<div class="closed">नाम और सही 10 अंक का मोबाइल नंबर डालें।</div>'; return; }
+    if (phone.length === 10) var ok = true;
+    const ref = new URLSearchParams(location.search).get('ref') || '';
+    try {
+      const es = await topicEntries();
+      const digest = await sha256hex('siswa-dl-26|' + phone);
+      if (es.some(x => x.t === 'reg' && x.dg === digest)){
+        out.innerHTML = '<div class="closed">इस नंबर से पहले ही एंट्री है। एक नंबर से सिर्फ एक बार रजिस्टर हो सकते हैं।</div>';
+        return;
+      }
+      const code = randCode();
+      const rec = {t:'reg', c:code, dg:digest, d:Date.now(), r:ref, n:await enc(name), p:await enc(phone)};
+      const res = await postEntry(rec);
+      if (res.error === 'rate'){ out.innerHTML = '<div class="closed">अभी बहुत सारी एंट्री आ रही हैं, 2 मिनट बाद दोबारा कोशिश करें।</div>'; return; }
+      if (res.error){ out.innerHTML = '<div class="closed">कुछ गड़बड़ हो गई, दोबारा कोशिश करें।</div>'; return; }
+      S.code = code; localStorage.setItem('dl_code', code);
+      out.innerHTML = '<div class="success">रजिस्टर हो गया!</div><div class="codebox">' + code + '</div><div class="note">आपका कोड संभाल कर रखें। नाम और नंबर encrypt होकर सेव हुए हैं। शेयर करना optional है; गेम पूरा करने पर आप विजेता चुने जाने वाली सूची में आते हैं। इनाम guaranteed नहीं है।</div>';
+      showGame(); setupShare(code);
+    } catch(err){
+      out.innerHTML = '<div class="closed">नेटवर्क में दिक्कत, दोबारा कोशिश करें।</div>';
+    }
+  });
+  if (S.code){
+    showGame(); setupShare(S.code);
+    document.getElementById('diya').addEventListener('click', async () => {
+      if (!S.code || S.done) return;
+      const res = await postEntry({t:'game', c:S.code, d:Date.now()});
+      if (res.ok){
+        S.done = true; localStorage.setItem('dl_done', '1');
+        document.getElementById('diya').classList.add('lit');
+        document.getElementById('gameNote').textContent = 'दीपक जल गया! शुभकामनाएं। विजेता एंट्री बंद होने के बाद चुने जाएंगे।';
+      }
+    });
+  }
+}
+function setupShare(code){
+  const url = location.origin + location.pathname + '?ref=' + encodeURIComponent(code);
+  const text = 'दिवाली धमाका ऑफर! ₹2,000 तक का कैश रिवार्ड। यहाँ रजिस्टर करें: ' + url;
+  document.getElementById('shwa').href = 'https://wa.me/?text=' + encodeURIComponent(text);
+  document.getElementById('shtg').href = 'https://t.me/share/url?url=' + encodeURIComponent(url) + '&text=' + encodeURIComponent('दिवाली धमाका ऑफर! ₹2,000 तक का कैश रिवार्ड।');
+  document.getElementById('shcp').onclick = async () => { try { await navigator.share({text, url}); } catch(e) { try { await navigator.clipboard.writeText(text); document.getElementById('shcp').textContent = 'लिंक कॉपी हो गया!'; } catch(e2){} } };
+}
+init();
+</script>
+</body>
+</html>
