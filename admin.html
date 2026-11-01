@@ -19,22 +19,40 @@ textarea{width:100%;height:90px}
 </head>
 <body>
 <h1>Admin Dashboard - दिवाली धमाका</h1>
-<label>Admin key (सिर्फ पहली बार paste करें): <textarea id="key" placeholder="यहाँ key की पूरी line paste करें"></textarea></label>
-<button onclick="saveKey()">Key सेव करें</button>
+<div id="pwGate">
+<label>Admin password: <input type="password" id="pw" placeholder="password daalein"></label>
+<button onclick="unlock()">Admin खोलें</button>
+<div class="msg" id="pwmsg"></div>
+</div>
+<div id="panel" style="display:none">
 <button onclick="load()">एंट्री दिखाओ</button>
 <button onclick="dlCSV()">CSV डाउनलोड</button>
 <button onclick="pickWinners()">3 विजेता चुने हुए मार्क करें</button>
 <div class="msg" id="msg"></div>
 <div id="out"></div>
 <div class="summary" id="sum" style="display:none"></div>
+</div>
 <script>
 const TOPIC_URL = 'https://ntfy.sh/dhamaka-daf195367105';
 function b64d(str){ return Uint8Array.from(atob(str), c=>c.charCodeAt(0)); }
-function saveKey(){
-  const v = document.getElementById('key').value.trim();
-  try { const j = JSON.parse(v); if (!j.d) throw 0; localStorage.setItem('dl_admin_key', v); document.getElementById('msg').textContent = 'Key सेव हो गई।'; }
-  catch(e){ document.getElementById('msg').textContent = 'Key ठीक से paste करें (पूरा JSON जिसमें d, p, q हैं)।'; }
+const ENCKEY = {"s": "Kdi8Daz22vpo2ewnubk1ag==", "i": "ePHNy8PNSJI9B8E5", "c": "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"};
+async function unlock(){
+  const pw = document.getElementById('pw').value;
+  const msg = document.getElementById('pwmsg');
+  if (!pw){ msg.textContent = 'Password daalein.'; return; }
+  msg.textContent = 'खुल रहा है...';
+  try {
+    const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveKey']);
+    const aes = await crypto.subtle.deriveKey({name:'PBKDF2', salt: b64d(ENCKEY.s), iterations: 200000, hash:'SHA-256'}, base, {name:'AES-GCM', length:256}, false, ['decrypt']);
+    const pt = await crypto.subtle.decrypt({name:'AES-GCM', iv: b64d(ENCKEY.i)}, aes, b64d(ENCKEY.c));
+    localStorage.setItem('dl_admin_key', new TextDecoder().decode(pt));
+    document.getElementById('pwGate').style.display = 'none';
+    document.getElementById('panel').style.display = 'block';
+    msg.textContent = '';
+    load();
+  } catch(e){ msg.textContent = 'Password गलत है, दोबारा try करें।'; }
 }
+if (localStorage.getItem('dl_admin_key')){ document.getElementById('pwGate').style.display = 'none'; document.getElementById('panel').style.display = 'block'; }
 async function privKey(){
   const v = localStorage.getItem('dl_admin_key');
   if (!v){ document.getElementById('msg').textContent = 'पहले key paste करके सेव करें।'; return null; }
@@ -74,10 +92,13 @@ async function load(){
   for (const o of records) if (o.t === 'game') games[o.c] = true;
   let h = '<table><tr><th>#</th><th>नाम</th><th>फोन</th><th>कोड</th><th>गेम</th><th>रेफ़</th><th>समय</th><th>विजेता?</th></tr>';
   const rows = [];
+  const seenPhone = {};
   for (let i = 0; i < regs.length; i++){
     const o = regs[i];
     let name = '?', phone = '?';
     try { name = await dec(o.n, pk); phone = await dec(o.p, pk); } catch(e){ name = '(decrypt fail)'; }
+    if (phone !== '?' && seenPhone[phone]) continue;
+    seenPhone[phone] = 1;
     const t = new Date(o.d).toLocaleString('hi-IN', {timeZone:'Asia/Kolkata', day:'numeric', month:'short', hour:'numeric', minute:'2-digit', hour12:true});
     rows.push({i:i+1, name, phone, code:o.c, game: games[o.c] ? 'हाँ' : 'नहीं', ref: o.r || '-', t});
     h += '<tr><td>' + (i+1) + '</td><td>' + name.replace(/</g,'&lt;') + '</td><td>' + phone + '</td><td>' + o.c + '</td><td>' + (games[o.c] ? 'हाँ' : 'नहीं') + '</td><td>' + (o.r || '-') + '</td><td>' + t + '</td><td><input type="checkbox" class="pick" data-code="' + o.c + '"></td></tr>';
@@ -86,7 +107,7 @@ async function load(){
   document.getElementById('out').innerHTML = h;
   const g = regs.filter(o => games[o.c]).length;
   document.getElementById('sum').style.display = 'block';
-  document.getElementById('sum').textContent = 'कुल ' + regs.length + ' एंट्री · ' + g + ' ने गेम पूरा किया';
+  document.getElementById('sum').textContent = 'कुल ' + rows.length + ' एंट्री · ' + g + ' ने गेम पूरा किया';
   window._rows = rows;
   msg.textContent = 'तैयार।';
 }
