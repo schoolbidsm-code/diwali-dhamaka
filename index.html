@@ -49,19 +49,32 @@ footer{text-align:center;color:#fff;font-size:.8rem;padding:20px 0}
     <p class="note" id="gameNote">रजिस्टर करने के बाद दीपक पर टैप करें। गेम पूरा करने पर आप विजेता चुने जाने वाली सूची में आते हैं। इनाम पक्का नहीं है।</p>
   </div>
   <div class="card" id="shareCard" style="display:none">
-    <h2>शेयर करें (ज़रूरी नहीं)</h2>
-    <p style="font-size:.95rem">चाहें तो ऑफर दोस्तों को भेजें। शेयर करना ज़रूरी नहीं है और जीतने पर कोई असर नहीं डालता।</p>
+    <h2>शेयर करें</h2>
+    <p style="font-size:.95rem">ऑफर दोस्तों को भेजें। 10 बार शेयर करने पर नीचे अपनी UPI ID और QR कोड जोड़ने का विकल्प खुल जाएगा, जिससे इनाम मिलने पर पैसा सीधे उसी पर भेजा जाएगा।</p>
     <div class="share-row">
       <a class="share-btn wa" id="shwa" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>WhatsApp पर भेजें</a>
       <a class="share-btn tg" id="shtg" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>Telegram पर भेजें</a>
       <button type="button" class="share-btn ig" id="shcp">लिंक कॉपी करें</button>
+    <div class="note" id="shProg" style="margin-top:8px"></div>
+    <div id="upiBox" style="display:none;margin-top:10px;border-top:1px dashed #e0c9a6;padding-top:10px">
+      <h2 style="font-size:1.05rem">पैसे लेने की जानकारी (UPI)</h2>
+      <form id="upiForm">
+        <input id="upiname" placeholder="आपका नाम" required>
+        <input id="upiphone" type="tel" placeholder="मोबाइल नंबर" required>
+        <input id="upiid" placeholder="UPI ID (जैसे naam@bank)" required>
+        <input id="upiqr" type="file" accept="image/*">
+        <img id="upiPrev" style="display:none;max-width:140px;border-radius:8px;margin-top:6px" alt="QR">
+        <button type="submit">UPI जोड़ें</button>
+        <div class="note">UPI ID और QR encrypt होकर सेव होते हैं; इनाम मिलने पर इसी पर पैसा भेजा जाएगा। QR चाहें तो अपने UPI ऐप से लगाएं।</div>
+        <div id="upiOut"></div>
+      </form>
     </div>
   </div>
   <div class="card">
     <h2>नियम</h2>
     <div class="rule">एंट्री बिल्कुल फ्री है; उम्र या लिंग की पाबंदी नहीं।</div>
     <div class="rule">3 विजेताओं को ₹2,000-₹2,000 (कुल ₹6,000); विजेता आयोजक खुद चुनेंगे, इनाम पक्का नहीं है।</div>
-    <div class="rule">शेयर पूरी तरह optional है; कोई share count नहीं दिखता।</div>
+    <div class="rule">10 बार शेयर करने के बाद आप अपनी UPI ID और QR कोड website में ही जोड़ सकते हैं, जिससे इनाम मिलने पर पैसा सीधे उसी पर भेजा जाए।</div>
     <div class="rule">एक मोबाइल नंबर से एक ही एंट्री। नाम और नंबर आपके फ़ोन में ही encrypt होकर सेव होते हैं, OTP नहीं माँगा जाता; decrypt करने वाली चाबी केवल आयोजक के पास है।</div>
     <div class="rule">जॉइन करने के लिए कभी पैसे नहीं देने होते। पैसे माँगने वाला इस ऑफर का नहीं है।</div>
     <div class="rule" id="deadlineLine"></div>
@@ -152,8 +165,8 @@ async function init(){
       const res = await postEntry(rec);
       if (res.error === 'rate'){ out.innerHTML = '<div class="closed">अभी बहुत सारी एंट्री आ रही हैं, 2 मिनट बाद दोबारा कोशिश करें।</div>'; return; }
       if (res.error){ out.innerHTML = '<div class="closed">कुछ गड़बड़ हो गई, दोबारा कोशिश करें।</div>'; return; }
-      S.code = code; localStorage.setItem('dl_code', code);
-      out.innerHTML = '<div class="success">रजिस्टर हो गया!</div><div class="codebox">' + code + '</div><div class="note">आपका कोड संभाल कर रखें। नाम और नंबर encrypt होकर सेव हुए हैं। शेयर करना optional है; गेम पूरा करने पर आप विजेता चुने जाने वाली सूची में आते हैं। इनाम guaranteed नहीं है।</div>';
+      S.code = code; localStorage.setItem('dl_code', code); localStorage.setItem('dl_reg', JSON.stringify({n:name, p:phone}));
+      out.innerHTML = '<div class="success">रजिस्टर हो गया!</div><div class="codebox">' + code + '</div><div class="note">आपका कोड संभाल कर रखें। नाम और नंबर encrypt होकर सेव हुए हैं। 10 बार शेयर करने पर UPI जोड़ने का विकल्प खुलता है; गेम पूरा करने पर आप विजेता चुने जाने वाली सूची में आते हैं। इनाम guaranteed नहीं है।</div>';
       showGame(); setupShare(code);
     } catch(err){
       out.innerHTML = '<div class="closed">नेटवर्क में दिक्कत, दोबारा कोशिश करें।</div>';
@@ -178,6 +191,69 @@ function setupShare(code){
   document.getElementById('shwa').href = 'https://wa.me/?text=' + encodeURIComponent(text);
   document.getElementById('shtg').href = 'https://t.me/share/url?url=' + encodeURIComponent(url) + '&text=' + encodeURIComponent('दिवाली धमाका ऑफर! ₹2,000 तक का कैश रिवार्ड।');
   document.getElementById('shcp').onclick = async () => { try { await navigator.share({text, url}); } catch(e) { try { await navigator.clipboard.writeText(text); document.getElementById('shcp').textContent = 'लिंक कॉपी हो गया!'; } catch(e2){} } };
+  document.getElementById('shwa').addEventListener('click', bumpShare);
+  document.getElementById('shtg').addEventListener('click', bumpShare);
+  document.getElementById('shcp').addEventListener('click', bumpShare);
+  updShare(); setupUPI(code);
+}
+function shareCount(){ return parseInt(localStorage.getItem('dl_shc')||'0',10)||0; }
+function bumpShare(){ localStorage.setItem('dl_shc', String(shareCount()+1)); updShare(); }
+function updShare(){
+  const n = shareCount();
+  const prog = document.getElementById('shProg');
+  if (!prog) return;
+  if (n >= 10){ prog.textContent = 'शेयर पूरे हो गए (' + n + ')! अब नीचे अपनी UPI जोड़ें।'; document.getElementById('upiBox').style.display = 'block'; }
+  else prog.textContent = 'शेयर: ' + n + '/10 · 10 पूरे करने पर UPI जोड़ने का विकल्प खुलेगा';
+}
+async function encBytes(bytes){
+  const k = crypto.getRandomValues(new Uint8Array(32));
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const ct = new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM', iv}, await crypto.subtle.importKey('raw', k, 'AES-GCM', false, ['encrypt']), bytes));
+  const wk = new Uint8Array(await crypto.subtle.encrypt({name:'RSA-OAEP', hash:'SHA-256'}, await pubKey(), k));
+  return {k: b64e(wk), v: b64e(iv) + '.' + b64e(ct)};
+}
+async function shrinkQR(file){
+  const img = await createImageBitmap(file);
+  const sc = Math.min(1, 420 / Math.max(img.width, img.height));
+  const c = document.createElement('canvas');
+  c.width = Math.max(1, Math.round(img.width * sc)); c.height = Math.max(1, Math.round(img.height * sc));
+  c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+  const blob = await new Promise(r => c.toBlob(r, 'image/jpeg', 0.6));
+  return new Uint8Array(await blob.arrayBuffer());
+}
+function setupUPI(code){
+  const r = localStorage.getItem('dl_reg');
+  if (r){ try { const d = JSON.parse(r); document.getElementById('upiname').value = d.n || ''; document.getElementById('upiphone').value = d.p || ''; } catch(e){} }
+  document.getElementById('upiqr').addEventListener('change', e => { const f = e.target.files[0]; if (!f) return; const p = document.getElementById('upiPrev'); p.src = URL.createObjectURL(f); p.style.display = 'block'; });
+  document.getElementById('upiForm').addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+    const out = document.getElementById('upiOut');
+    const name = document.getElementById('upiname').value.trim();
+    const phone = normalizePhone(document.getElementById('upiphone').value);
+    const upi = document.getElementById('upiid').value.trim();
+    if (!name || !phone || !/^[a-zA-Z0-9.\-_]{2,256}@[a-zA-Z]{2,64}$/.test(upi)){ out.innerHTML = '<div class="closed">नाम, सही मोबाइल नंबर और सही UPI ID (जैसे naam@bank) डालें।</div>'; return; }
+    const f = document.getElementById('upiqr').files[0];
+    out.innerHTML = '<div class="note">जोड़ा जा रहा है...</div>';
+    try {
+      let qurl = '';
+      if (f){
+        const payload = JSON.stringify(await encBytes(await shrinkQR(f)));
+        const ra = await fetch(TOPIC_URL, {method:'PUT', headers:{'X-Filename':'upi-'+code+'.json','Title':'dl-upiq','Priority':'min'}, body: payload});
+        if (!ra.ok) throw new Error('qr');
+        const j = await ra.json();
+        qurl = (j.attachment && j.attachment.url) || '';
+      }
+      const rec = {t:'upi', c:code, d:Date.now(), n:await enc(name), p:await enc(phone), u:await enc(upi)};
+      if (qurl) rec.q = qurl;
+      const res = await postEntry(rec);
+      if (res.error) throw new Error('post');
+      localStorage.setItem('dl_upi', code);
+      out.innerHTML = '<div class="success">UPI जोड़ दी गई! इनाम मिलने पर इसी पर पैसा भेजा जाएगा।</div>';
+    } catch(e){
+      out.innerHTML = '<div class="closed">कुछ गड़बड़ हो गई, दोबारा कोशिश करें।</div>';
+    }
+  });
+  if (localStorage.getItem('dl_upi')) document.getElementById('upiForm').querySelector('button').textContent = 'नई UPI जानकारी जोड़ें (पुरानी की जगह)';
 }
 init();
 </script>

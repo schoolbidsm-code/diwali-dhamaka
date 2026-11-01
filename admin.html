@@ -70,13 +70,13 @@ async function allRecords(){
   const r = await fetch(TOPIC_URL + '/json?poll=1&since=all');
   const lines = (await r.text()).trim().split('\n').filter(Boolean);
   for (const l of lines){
-    try { const m = JSON.parse(l); if (m.event === 'message' && m.message){ const o = JSON.parse(m.message); if (!seen[o.dg + '|' + o.c]){ seen[o.dg + '|' + o.c] = 1; out.push(o); } } } catch(e){}
+    try { const m = JSON.parse(l); if (m.event === 'message' && m.message){ const o = JSON.parse(m.message); const kk = (o.dg||'') + '|' + o.c + '|' + (o.t||'') + '|' + (o.d||''); if (!seen[kk]){ seen[kk] = 1; out.push(o); } } } catch(e){}
   }
   try {
     const b = await fetch('entries.json');
     if (b.ok){
       const arr = await b.json();
-      for (const o of arr){ if (!seen[o.dg + '|' + o.c]){ seen[o.dg + '|' + o.c] = 1; out.push(o); } }
+      for (const o of arr){ const kk = (o.dg||'') + '|' + o.c + '|' + (o.t||'') + '|' + (o.d||''); if (!seen[kk]){ seen[kk] = 1; out.push(o); } }
     }
   } catch(e){}
   return out;
@@ -104,6 +104,37 @@ async function load(){
     h += '<tr><td>' + (i+1) + '</td><td>' + name.replace(/</g,'&lt;') + '</td><td>' + phone + '</td><td>' + o.c + '</td><td>' + (games[o.c] ? 'हाँ' : 'नहीं') + '</td><td>' + (o.r || '-') + '</td><td>' + t + '</td><td><input type="checkbox" class="pick" data-code="' + o.c + '"></td></tr>';
   }
   h += '</table>';
+  const upis = records.filter(o => o.t === 'upi');
+  if (upis.length){
+    const latest = {};
+    for (const o of upis){ let ph = '?'; try { ph = await dec(o.p, pk); } catch(e){} if (ph !== '?') latest[ph] = o; }
+    let uh = '<h3 style="color:#e0641c;margin-top:14px">UPI जानकारी (पैसे भेजने के लिए)</h3><table><tr><th>नाम</th><th>फोन</th><th>UPI ID</th><th>QR</th><th>समय</th></tr>';
+    for (const ph in latest){
+      const o = latest[ph];
+      let name = '?', upi = '?', qr = '<span style="color:#999">नहीं</span>';
+      try { name = await dec(o.n, pk); } catch(e){}
+      try { upi = await dec(o.u, pk); } catch(e){}
+      if (o.q){
+        try {
+          const r2 = await fetch(o.q);
+          if (r2.ok){
+            const jb = await r2.json();
+            const [ivb, ctb] = jb.v.split('.');
+            const rawKey = await crypto.subtle.decrypt({name:'RSA-OAEP', hash:'SHA-256'}, pk, b64d(jb.k));
+            const aes = await crypto.subtle.importKey('raw', rawKey, 'AES-GCM', false, ['decrypt']);
+            const pt = await crypto.subtle.decrypt({name:'AES-GCM', iv: b64d(ivb)}, aes, b64d(ctb));
+            const u8 = new Uint8Array(pt); let s = '';
+            for (let i = 0; i < u8.length; i += 8192){ s += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); }
+            qr = '<img src="data:image/jpeg;base64,' + btoa(s) + '" style="max-width:120px;border-radius:6px">';
+          } else qr = '<span style="color:#999">मियाद बीत गई</span>';
+        } catch(e){ qr = '<span style="color:#999">लोड नहीं हुआ</span>'; }
+      }
+      const tu = new Date(o.d).toLocaleString('hi-IN', {timeZone:'Asia/Kolkata', day:'numeric', month:'short', hour:'numeric', minute:'2-digit', hour12:true});
+      uh += '<tr><td>' + String(name).replace(/</g,'&lt;') + '</td><td>' + ph + '</td><td>' + String(upi).replace(/</g,'&lt;') + '</td><td>' + qr + '</td><td>' + tu + '</td></tr>';
+    }
+    uh += '</table>';
+    h += uh;
+  }
   document.getElementById('out').innerHTML = h;
   const g = regs.filter(o => games[o.c]).length;
   document.getElementById('sum').style.display = 'block';
