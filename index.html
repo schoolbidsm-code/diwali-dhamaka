@@ -137,7 +137,30 @@
     </ul>
   </div>
 
-  <footer>Diwali offer 2026 · Run by Diwali Dhamaka · Questions? Message on WhatsApp</footer>
+  <div class="card" id="winCard" style="display:none;">
+  <h2>Winner details</h2>
+  <p class="fine" style="margin-bottom:10px;">Congratulations! Enter the winner code you received on your call, then upload your photo and your UPI QR code.</p>
+  <div id="winLock">
+    <input type="text" id="wcode" placeholder="Winner code (e.g. WIN-XXXXXX)">
+    <button type="button" id="wunlock">Unlock</button>
+    <p class="form-note" id="winMsg"></p>
+  </div>
+  <form id="winForm" style="display:none;" action="https://formsubmit.co/singhdivyansh9789@gmail.com" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="_subject" value="WINNER - photo and QR upload">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_next" value="https://schoolbidsm-code.github.io/diwali-dhamaka/?winner=done">
+    <input type="text" name="name" placeholder="Your full name" required>
+    <input type="tel" name="phone" placeholder="Your mobile number" required>
+    <input type="text" name="code" id="wcodeField" placeholder="Winner code" readonly>
+    <p class="fine" style="margin:4px 0;">Your photo</p>
+    <input type="file" name="photo" accept="image/*" required style="padding:8px;">
+    <p class="fine" style="margin:4px 0;">Your UPI QR code</p>
+    <input type="file" name="qr" accept="image/*" required style="padding:8px;">
+    <button type="submit" style="margin-top:10px;">Upload photo and QR</button>
+  </form>
+  <div id="winDone" class="success" style="display:none;">Thank you! Your photo and QR code are received. The team will contact you about your ₹2,000 reward soon.</div>
+</div>
+<footer>Diwali offer 2026 · Run by Diwali Dhamaka · Questions? Message on WhatsApp</footer>
 </div>
 <script>
 var PAGE_URL = 'https://schoolbidsm-code.github.io/diwali-dhamaka/';
@@ -248,6 +271,31 @@ cp.addEventListener('click', function() {
 });
 document.getElementById('shwa').href = 'https://wa.me/?text=' + encodeURIComponent(SHARE_TEXT);
 document.getElementById('shtg').href = 'https://t.me/share/url?url=' + encodeURIComponent(PAGE_URL) + '&text=' + encodeURIComponent(SHARE_TEXT);
+
+var WIN_CODES = { 'WIN-M7K2QX': 'Amit', 'WIN-T4PJ9D': 'Riya', 'WIN-B8RN53': 'Karishma' };
+(function winnerBox() {
+  var cutoff = new Date('2026-11-02T12:30:00+05:30').getTime();
+  var card = document.getElementById('winCard');
+  if (Date.now() < cutoff) return;
+  card.style.display = 'block';
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('winner') === 'done') {
+    document.getElementById('winDone').style.display = 'block';
+    document.getElementById('winForm').style.display = 'none';
+    document.getElementById('winLock').style.display = 'none';
+    return;
+  }
+  document.getElementById('wunlock').addEventListener('click', function() {
+    var c = document.getElementById('wcode').value.trim().toUpperCase();
+    if (WIN_CODES[c]) {
+      document.getElementById('winLock').style.display = 'none';
+      document.getElementById('winForm').style.display = 'block';
+      document.getElementById('wcodeField').value = c;
+    } else {
+      document.getElementById('winMsg').textContent = 'This code is not right. Please check the code you received on your call.';
+    }
+  });
+})();
 </script>
 </body>
 </html>
