@@ -116,9 +116,7 @@ footer{text-align:center;color:#fff;font-size:.8rem;padding:20px 0}
 
 var WIN_CODES = { '473926': 'Amit', '830154': 'Riya', '912748': 'Karishma' };
 (function winnerBox() {
-  var cutoff = new Date('2026-11-02T12:30:00+05:30').getTime();
   var card = document.getElementById('winCard');
-  if (Date.now() < cutoff) return;
   card.style.display = 'block';
   var params = new URLSearchParams(window.location.search);
   if (params.get('winner') === 'done') {
